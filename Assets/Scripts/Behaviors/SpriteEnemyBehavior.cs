@@ -40,8 +40,6 @@ public class SpriteEnemyBehavior : EnemyBehavior {
     private bool movePending;
     private Vector3 pendingMoveVelocity;
 
-    public BoxCollider roomBounds;
-
     protected CharacterController character;
     protected DamageableComponent damage;
     protected RotatableComponent rotation;
@@ -126,11 +124,6 @@ public class SpriteEnemyBehavior : EnemyBehavior {
             }
 
             pendingMoveVelocity = Vector3.zero;
-
-            // If it has them, clamp to room bounds
-            if(roomBounds != null){
-                transform.position = roomBounds.bounds.ClosestPoint(transform.position);
-            }
         }
     }
 
