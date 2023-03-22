@@ -80,8 +80,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invincible: 0
-  maxHealth: 0
-  currentHealth: 0
+  maxHealth: 5
+  currentHealth: 5
   team: 0
   resistances: []
 --- !u!114 &241141197

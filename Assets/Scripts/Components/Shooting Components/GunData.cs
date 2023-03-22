@@ -1,27 +1,7 @@
-//##################################################################################################
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
-//##################################################################################################
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//##################################################################################################
-// Ammo Type
-// Used for sorting different types of ammo
-// Meant to be extended or modified to be game-specific
-//##################################################################################################
 public enum AmmoType {
     AmmoType0,
     AmmoType1,
@@ -35,11 +15,6 @@ public enum AmmoType {
     // ...
 }
 
-//##################################################################################################
-// Gun Data
-// Contains all the basic characteristics of guns
-// Specialized behavior is expected to be scripted into child classes of GunComponent
-//##################################################################################################
 [CreateAssetMenu(fileName = "GunData", menuName = "Shooter/Gun Data", order = 0)]
 public class GunData : ScriptableObject {
     [Header("Gun Characteristics")]

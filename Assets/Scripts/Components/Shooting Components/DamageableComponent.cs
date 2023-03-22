@@ -23,7 +23,7 @@ using UnityEngine;
 //##################################################################################################
 public enum DamageType {
     None,
-    Bullet,
+    Projectile,
     Explosion,
     Trigger,
     // ...
