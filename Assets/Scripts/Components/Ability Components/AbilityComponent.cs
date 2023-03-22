@@ -21,6 +21,7 @@ public class AbilityComponent : MonoBehaviour {
         public CastingState castingState;
         public Timer castTimer;
         public Timer cooldownTimer;
+        public GameObject spawnedObject;
     }
 
     private RuntimeAbilityData[] runtimeAbilityData;
@@ -48,16 +49,17 @@ public class AbilityComponent : MonoBehaviour {
 
     void Update(){
         // Capture player inputs
-        if(Input.GetKeyUp(KeyCode.Mouse0) && CanCast(selectedAbilityIndexA)){
+        if(Input.GetKeyDown(KeyCode.Mouse0) && CanCast(selectedAbilityIndexA)){
             StartCasting(selectedAbilityIndexA);
         }
 
-        if(Input.GetKeyUp(KeyCode.Mouse1) && CanCast(selectedAbilityIndexB)){
+        if(Input.GetKeyDown(KeyCode.Mouse1) && CanCast(selectedAbilityIndexB)){
             StartCasting(selectedAbilityIndexB);
         }
 
         // Update abilities as needed
         for(int i = 0, count = runtimeAbilityData.Length; i < count; ++i){
+            AbilityData ad = abilityDatas[i];
             RuntimeAbilityData rad = runtimeAbilityData[i];
 
             if(rad.castTimer.Finished() && rad.castingState == CastingState.precasting){
@@ -66,7 +68,15 @@ public class AbilityComponent : MonoBehaviour {
                 rad.cooldownTimer.Start();
             }
             if(rad.cooldownTimer.Finished() && rad.castingState == CastingState.coolingDown){
-                rad.castingState = CastingState.idle;
+                // If marked to re-cast while button held, do so; else stop casting completely
+                if(ad.recastWhileHeld && Input.GetKey(KeyCode.Mouse0)){
+                    ExecuteCast(i);
+                } else {
+                    rad.castingState = CastingState.idle;
+
+                    // Don't destroy - the spawned object will take care of that. But mark as null.
+                    rad.spawnedObject = null;
+                }
             }
         }
     }
@@ -86,6 +96,7 @@ public class AbilityComponent : MonoBehaviour {
 
     private void ExecuteCast(int abilityIndex){
         AbilityData abilityData = abilityDatas[abilityIndex];
+        RuntimeAbilityData rad = runtimeAbilityData[abilityIndex];
 
         if(abilityData.abilityType == AbilityData.AbilityType.SpawnObject){
             Vector3 spawnPosition = castTransform.position
@@ -93,11 +104,14 @@ public class AbilityComponent : MonoBehaviour {
                                     + (castTransform.up * abilityData.spawnOffsetFromCastTransform.y)
                                     + (castTransform.forward * abilityData.spawnOffsetFromCastTransform.z);
 
-            GameObject spawnedObject = GameObject.Instantiate(abilityData.objectToSpawn);
-            spawnedObject.transform.position = spawnPosition;
-            spawnedObject.transform.rotation = castTransform.rotation;
+            if(rad.spawnedObject == null){
+                rad.spawnedObject = GameObject.Instantiate(abilityData.objectToSpawn);
+            }
 
-            ProjectileComponent projectile = spawnedObject.GetComponent<ProjectileComponent>();
+            rad.spawnedObject.transform.position = spawnPosition;
+            rad.spawnedObject.transform.rotation = castTransform.rotation;
+
+            ProjectileComponent projectile = rad.spawnedObject.GetComponent<ProjectileComponent>();
             if(projectile != null){
                 // TODO figure out how to source this data
                 projectile.Fire(1.0f, DamageType.Projectile, castTransform.forward * 10.0f, gameObject);
