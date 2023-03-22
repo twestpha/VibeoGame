@@ -58,8 +58,6 @@ public class SimpleExampleEnemy : SpriteEnemyBehavior {
     private Timer patrolIdleTimer;
     private Timer shootTimer;
 
-    private GunComponent gun;
-
     //##############################################################################################
     // Make sure to call base start, then setup some simple state
     //##############################################################################################
@@ -71,7 +69,7 @@ public class SimpleExampleEnemy : SpriteEnemyBehavior {
         patrolIdleTimer = new Timer(patrolIdleTime);
         shootTimer = new Timer(shootCooldown);
 
-        gun = GetComponent<GunComponent>();
+        // gun = GetComponent<GunComponent>();
 
         patrolIdleTimer.Start();
     }
@@ -119,7 +117,7 @@ public class SimpleExampleEnemy : SpriteEnemyBehavior {
                 toPlayer.y = 0.0f;
                 transform.rotation = Quaternion.LookRotation(toPlayer);
 
-                gun.Shoot();
+                // gun.Shoot();
                 shootTimer.Start();
                 rotation.SetAnimationIndex(IDLE_ANIMATION_INDEX);
             }

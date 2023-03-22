@@ -43,7 +43,7 @@ public class FirstPersonHudComponent : MonoBehaviour {
 
     [Header("Current Gun")]
     public Image currentGunImage;
-    public GunComponent[] gunComponents;
+    // public GunComponent[] gunComponents;
     public Sprite[] gunSprites;
     private int currentGunIndex = -1;
 
@@ -54,9 +54,9 @@ public class FirstPersonHudComponent : MonoBehaviour {
     // Then, setup the timer and register for the damaged delegate.
     //##############################################################################################
     void Start(){
-        if(gunComponents.Length != gunSprites.Length){
-            Logger.Error("FirstPersonHudComponent's gunComponents and gunSprites lengths don't match");
-        }
+        // if(gunComponents.Length != gunSprites.Length){
+        //     Logger.Error("FirstPersonHudComponent's gunComponents and gunSprites lengths don't match");
+        // }
 
         damageFlashTimer = new Timer(damageFlashTime);
 
@@ -85,32 +85,32 @@ public class FirstPersonHudComponent : MonoBehaviour {
 
         // Update current gun index, updating info if gun changed
         int previousGunIndex = currentGunIndex;
-        for(int i = 0, count = gunComponents.Length; i < count; ++i){
-            if(gunComponents[i].enabled){
-                currentGunIndex = i;
-                break;
-            }
-        }
+        // for(int i = 0, count = gunComponents.Length; i < count; ++i){
+        //     if(gunComponents[i].enabled){
+        //         currentGunIndex = i;
+        //         break;
+        //     }
+        // }
 
         if(currentGunIndex != previousGunIndex){
             currentGunImage.sprite = gunSprites[currentGunIndex];
 
-            remainingMagazineAmmoText.enabled = gunComponents[currentGunIndex].GetRemainingMagazineAmmoCount() >= 0;
-            remainingBoxAmmoText.enabled = gunComponents[currentGunIndex].GetRemainingBoxAmmoCount() >= 0;
+            // remainingMagazineAmmoText.enabled = gunComponents[currentGunIndex].GetRemainingMagazineAmmoCount() >= 0;
+            // remainingBoxAmmoText.enabled = gunComponents[currentGunIndex].GetRemainingBoxAmmoCount() >= 0;
         }
 
         if(remainingMagazineAmmoText != null){
-            int remainingMagazineAmmoCount = gunComponents[currentGunIndex].GetRemainingMagazineAmmoCount();
-            int remainingBoxAmmoCount = gunComponents[currentGunIndex].GetRemainingBoxAmmoCount();
+            // int remainingMagazineAmmoCount = gunComponents[currentGunIndex].GetRemainingMagazineAmmoCount();
+            // int remainingBoxAmmoCount = gunComponents[currentGunIndex].GetRemainingBoxAmmoCount();
 
             // Ammo being negative indicates that its not used
-            if(remainingMagazineAmmoCount >= 0){
-                remainingMagazineAmmoText.text = remainingMagazineAmmoCount.ToString();
-            }
-
-            if(remainingBoxAmmoCount >= 0){
-                remainingBoxAmmoText.text = remainingBoxAmmoCount.ToString();
-            }
+            // if(remainingMagazineAmmoCount >= 0){
+            //     remainingMagazineAmmoText.text = remainingMagazineAmmoCount.ToString();
+            // }
+            //
+            // if(remainingBoxAmmoCount >= 0){
+            //     remainingBoxAmmoText.text = remainingBoxAmmoCount.ToString();
+            // }
         }
     }
 

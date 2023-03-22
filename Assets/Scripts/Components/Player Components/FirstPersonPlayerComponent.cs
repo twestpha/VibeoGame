@@ -68,7 +68,7 @@ public class FirstPersonPlayerComponent : MonoBehaviour {
     private Vector3 lastSafePosition;
     private Timer safeTimer;
 
-    private GunComponent gun;
+    // private GunComponent gun;
     private CharacterController character;
     private DamageableComponent damage;
 
@@ -111,7 +111,7 @@ public class FirstPersonPlayerComponent : MonoBehaviour {
         movementEnabled = true;
         lookingEnabled = true;
 
-        gun = GetComponent<GunComponent>();
+        // gun = GetComponent<GunComponent>();
         character = GetComponent<CharacterController>();
         damage = GetComponent<DamageableComponent>();
 
@@ -425,28 +425,28 @@ public class FirstPersonPlayerComponent : MonoBehaviour {
     //##############################################################################################
     // Add both movement and camera look recoil to the player
     //##############################################################################################
-    public void AddGunRecoil(GunComponent gun){
-        // Momentum Recoil
-        Vector3 forward = playerCamera.transform.forward;
-        forward.y = 0.0f;
-        forward.Normalize();
-
-        velocity += gun.GetMomentumRecoil() * -forward;
-
-        // Aim Recoil
-        // Note that this stomps any existing recoil.
-        float recoilTime = gun.GetCooldown();
-
-        recoilDecayTimer.SetDuration(recoilTime);
-        recoilDecayTimer.Start();
-
-        // The gun returns the total amount of degrees the recoil is going to do. So, we divide this
-        // by time to get Degrees Per Second to apply over time. But, we're going to start a 1x, but
-        // over the span of the timer, reduce that to 0x, giving it a falloff. So, to make sure we
-        // hit the total amount of degrees, we integrate over that curve, so we multiply by 2 to
-        // get that value correctly.
-        recoilAmount = gun.GetAimRecoil() * 2.0f / recoilTime;
-    }
+    // public void AddGunRecoil(GunComponent gun){
+    //     // Momentum Recoil
+    //     Vector3 forward = playerCamera.transform.forward;
+    //     forward.y = 0.0f;
+    //     forward.Normalize();
+    //
+    //     velocity += gun.GetMomentumRecoil() * -forward;
+    //
+    //     // Aim Recoil
+    //     // Note that this stomps any existing recoil.
+    //     float recoilTime = gun.GetCooldown();
+    //
+    //     recoilDecayTimer.SetDuration(recoilTime);
+    //     recoilDecayTimer.Start();
+    //
+    //     // The gun returns the total amount of degrees the recoil is going to do. So, we divide this
+    //     // by time to get Degrees Per Second to apply over time. But, we're going to start a 1x, but
+    //     // over the span of the timer, reduce that to 0x, giving it a falloff. So, to make sure we
+    //     // hit the total amount of degrees, we integrate over that curve, so we multiply by 2 to
+    //     // get that value correctly.
+    //     recoilAmount = gun.GetAimRecoil() * 2.0f / recoilTime;
+    // }
 
     //##############################################################################################
     // Add a Camera shake with an amount, scaled by distance, and start the decay timer.
