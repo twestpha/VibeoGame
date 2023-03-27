@@ -19,9 +19,12 @@ public class AbilityComponent : MonoBehaviour {
 
     private class RuntimeAbilityData {
         public CastingState castingState;
+
         public Timer castTimer;
         public Timer cooldownTimer;
+
         public GameObject spawnedObject;
+        public AbilityEffectsComponent spawnedAbilityEffects;
     }
 
     private RuntimeAbilityData[] runtimeAbilityData;
@@ -62,6 +65,10 @@ public class AbilityComponent : MonoBehaviour {
             AbilityData ad = abilityDatas[i];
             RuntimeAbilityData rad = runtimeAbilityData[i];
 
+            if(rad.spawnedAbilityEffects != null){
+                rad.spawnedAbilityEffects.EffectsUpdate();
+            }
+
             if(rad.castTimer.Finished() && rad.castingState == CastingState.precasting){
                 ExecuteCast(i);
                 rad.castingState = CastingState.coolingDown;
@@ -69,12 +76,17 @@ public class AbilityComponent : MonoBehaviour {
             }
             if(rad.cooldownTimer.Finished() && rad.castingState == CastingState.coolingDown){
                 // If marked to re-cast while button held, do so; else stop casting completely
-                if(ad.recastWhileHeld && Input.GetKey(KeyCode.Mouse0)){
+                if(ad.continueCastingWhileHeld && Input.GetKey(KeyCode.Mouse0)){
                     ExecuteCast(i);
                 } else {
                     rad.castingState = CastingState.idle;
 
-                    // Don't destroy - the spawned object will take care of that. But mark as null.
+                    // If the spawned ability effects needs to be destroyed, it'll take care of
+                    // itself. But do set the spawnedObject to null
+                    if(rad.spawnedAbilityEffects != null){
+                        rad.spawnedAbilityEffects.EffectsFinish();
+                    }
+
                     rad.spawnedObject = null;
                 }
             }
@@ -111,6 +123,16 @@ public class AbilityComponent : MonoBehaviour {
             rad.spawnedObject.transform.position = spawnPosition;
             rad.spawnedObject.transform.rotation = castTransform.rotation;
 
+            // Setup ability effects (if present) with data and start it
+            AbilityEffectsComponent abilityEffects = rad.spawnedObject.GetComponent<AbilityEffectsComponent>();
+            if(abilityEffects != null){
+                abilityEffects.Setup(this, abilityData);
+                abilityEffects.EffectsStart();
+
+                rad.spawnedAbilityEffects = abilityEffects;
+            }
+
+            // If it's a projectile based ability, fire it
             ProjectileComponent projectile = rad.spawnedObject.GetComponent<ProjectileComponent>();
             if(projectile != null){
                 // TODO figure out how to source this data

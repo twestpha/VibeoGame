@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 5038879152311319489}
   - component: {fileID: 5947233653192877451}
   - component: {fileID: -3476637287864309528}
+  - component: {fileID: 9129545722013477657}
   m_Layer: 0
   m_Name: ability_lightning
   m_TagString: Untagged
@@ -189,6 +190,18 @@ MonoBehaviour:
   playOnStartup: 1
   stopOnDisable: 1
   stopOnDestroy: 1
+--- !u!114 &9129545722013477657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552996330619193922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82755fceb9454f45a333bbc822f3fb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2232142766648006020
 GameObject:
   m_ObjectHideFlags: 0

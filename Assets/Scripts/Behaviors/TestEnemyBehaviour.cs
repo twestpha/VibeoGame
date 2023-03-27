@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TestEnemyBehaviour : SpriteEnemyBehavior {
 
-    public const float UDPATE_RADIUS = 45.0f;
+    public const float UDPATE_RADIUS = 800.0f;
 
     public const float SHOOT_RADIUS = 12.0f;
 
@@ -34,6 +34,7 @@ public class TestEnemyBehaviour : SpriteEnemyBehavior {
 
     private Timer patrolIdleTimer;
     private Timer shootTimer;
+    private Timer updateTimer = new Timer(2.0f);
 
     // private GunComponent gun;
 
@@ -60,46 +61,12 @@ public class TestEnemyBehaviour : SpriteEnemyBehavior {
     public override void EnemyUpdate(){
         base.EnemyUpdate();
 
-        float playerDistance = (transform.position - FirstPersonPlayerComponent.player.transform.position).magnitude;
+        Vector3 toPlayer = transform.position - FirstPersonPlayerComponent.player.transform.position;
+        float playerDistance = (toPlayer).magnitude;
 
-        // any detection of the player during the patrol stops and shoot
-        if(enemyState != EnemyState.Attacking && playerDistance < SHOOT_RADIUS){
-            enemyState = EnemyState.Attacking;
-            StopMoving();
-            // rotation.SetAnimationIndex(SHOOT_ANIMATION_INDEX);
-        }
-
-        // Pretty simple finite state machine
-        if(enemyState == EnemyState.Idle){
-            if(patrolIdleTimer.Finished()){
-                enemyState = EnemyState.Patrolling;
-                MoveToPosition(patrollingAToB ? patrolPointB.position : patrolPointA.position);
-                // rotation.SetAnimationIndex(WALK_ANIMATION_INDEX);
-                patrollingAToB = !patrollingAToB;
-            }
-        } else if(enemyState == EnemyState.Patrolling){
-            if(AtGoal()){
-                patrolIdleTimer.Start();
-                enemyState = EnemyState.Idle;
-                // rotation.SetAnimationIndex(IDLE_ANIMATION_INDEX);
-            }
-        } else if(enemyState == EnemyState.Attacking){
-            if(playerDistance > SHOOT_RADIUS){
-                enemyState = EnemyState.Idle;
-                patrolIdleTimer.Start();
-            }
-
-            // bool hasShootToken = AttackTokenComponent.RequestToken(gameObject);
-
-            // if(shootTimer.Finished() && hasShootToken){
-            //     Vector3 toPlayer = FirstPersonPlayerComponent.player.transform.position - transform.position;
-            //     toPlayer.y = 0.0f;
-            //     transform.rotation = Quaternion.LookRotation(toPlayer);
-            //
-            //     gun.Shoot();
-            //     shootTimer.Start();
-            //     rotation.SetAnimationIndex(IDLE_ANIMATION_INDEX);
-            // }
+        if(updateTimer.Finished()){
+            updateTimer.Start();
+            MoveToPosition(FirstPersonPlayerComponent.player.transform.position);
         }
 
         // Make sure to re-register for next frames update if we're still near enough!

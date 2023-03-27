@@ -17,7 +17,7 @@ public class AbilityData : ScriptableObject {
     public AbilityType abilityType;
     public float castTime;
     public float cooldownTime;
-    public bool recastWhileHeld;
+    public bool continueCastingWhileHeld;
 
     [Header("SpawnObject attributes")]
     public GameObject objectToSpawn;

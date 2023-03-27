@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 241141195}
   - component: {fileID: 241141196}
   - component: {fileID: 241141197}
+  - component: {fileID: 5147989853445591453}
   m_Layer: 0
   m_Name: test_enemy
   m_TagString: Untagged
@@ -96,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b3a4ab526bcb34397bed506991a53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1
+  movementSpeed: 5
   accelerationTime: 0.1
   movementState: 0
   atGoalThreshold: 0.05
@@ -108,6 +109,19 @@ MonoBehaviour:
   muzzleTransform: {fileID: 0}
   bark: {fileID: 0}
   bodyToSpawn: {fileID: 0}
+--- !u!135 &5147989853445591453
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5147989853407745105}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 50
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5147989854211363326
 GameObject:
   m_ObjectHideFlags: 0
