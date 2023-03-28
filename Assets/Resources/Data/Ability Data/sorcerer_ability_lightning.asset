@@ -18,6 +18,6 @@ MonoBehaviour:
   continueCastingWhileHeld: 1
   objectToSpawn: {fileID: 1552996330619193922, guid: 61614e4c9eb07364fbad373e5993ef00,
     type: 3}
-  spawnOffsetFromCastTransform: {x: 0, y: -1, z: 0}
+  spawnOffsetFromCastTransform: {x: 0, y: -0.5, z: 0}
   damageShape: 0
   amount: 0

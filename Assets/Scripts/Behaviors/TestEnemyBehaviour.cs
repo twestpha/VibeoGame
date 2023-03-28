@@ -79,7 +79,9 @@ public class TestEnemyBehaviour : SpriteEnemyBehavior {
     // Play a grunt bark when damaged
     //##############################################################################################
     public override void PlayDamagedSequence(){
-        bark.Bark();
+        if(bark != null){
+            bark.Bark();
+        }
 
         base.PlayDamagedSequence();
     }

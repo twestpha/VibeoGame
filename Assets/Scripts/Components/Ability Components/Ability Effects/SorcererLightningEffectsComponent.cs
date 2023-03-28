@@ -18,7 +18,7 @@ public class SorcererLightningEffectsComponent : AbilityEffectsComponent {
             DamageableComponent hitDamageable = hitInfo.collider.gameObject.GetComponent<DamageableComponent>();
 
             if(hitDamageable != null){
-                hitDamageable.DealDamage(10.0f, DamageType.Projectile, hitInfo.point, castingAbilityComponent.gameObject);
+                hitDamageable.DealDamage(3.0f * Time.deltaTime, DamageType.Projectile, hitInfo.point, castingAbilityComponent.gameObject);
             }
 
             distance = hitInfo.distance;
