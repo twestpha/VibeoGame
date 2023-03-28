@@ -2,13 +2,18 @@ using UnityEngine;
 
 public class SorcererLightningEffectsComponent : AbilityEffectsComponent {
 
-    private const float MAX_DISTANCE = 5.0f;
+    private const float MAX_DISTANCE = 10.0f;
+
+    public Transform effectsRoot;
+    public MeshRenderer endpointRenderer;
 
     public override void EffectsUpdate(){
         // Debug.DrawLine(transform.position, transform.position + (transform.forward * 3.0f), Color.red, 0.0f, false);
 
         RaycastHit hitInfo;
         float distance = MAX_DISTANCE;
+        bool hit = false;
+
         if(Physics.Raycast(transform.position, transform.forward, out hitInfo, MAX_DISTANCE, ~0, QueryTriggerInteraction.Ignore)){
             DamageableComponent hitDamageable = hitInfo.collider.gameObject.GetComponent<DamageableComponent>();
 
@@ -17,9 +22,15 @@ public class SorcererLightningEffectsComponent : AbilityEffectsComponent {
             }
 
             distance = hitInfo.distance;
+            hit = true;
         }
 
-        // distance
+        endpointRenderer.enabled = hit;
+        effectsRoot.localScale = new Vector3(
+            1.0f,
+            1.0f,
+            (Mathf.Max(distance, 0.1f) / MAX_DISTANCE) * 0.85f
+        );
     }
 
     public override void EffectsFinish(){

@@ -14,15 +14,15 @@ TagManager:
   - UI
   - 
   - 
-  - Player
+  - 
   - NoPlayerCollide
   - OnlyPlayerCollide
   - NoBulletCollide
   - Destructable
-  - 
-  - 
-  - 
-  - 
+  - Player0
+  - Player1
+  - Player2
+  - Player3
   - 
   - 
   - 
