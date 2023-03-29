@@ -1,19 +1,22 @@
 # Tasks
 
-[x] (T) Get starter pack assets for zombie, city tileset in, hack together shitty level
-
-[x] Start sketching out abilities for first character class
+☐ Start sketching out abilities for first character class
     - (T) currently working on "Sorceror", just messing around with ability ideas
 
-[x] Start Figuring out dungeon generation
+☐ Start Figuring out dungeon generation
 
-[x] Start figuring out Enemy AI
-    - Deprecate attack token and enemy manager component
+☐ Start figuring out Enemy AI
 
-[x] Clean up leftover shooter assets
+☐ Clean up leftover shooter assets
 
-[x] Player Movement
+☐ Player Movement
 
 # Done
 
-[/] (T) Refactor weapon components to be more robust ability components
+☑ (T) Refactor weapon components to be more robust ability components
+
+☑ (T) Get starter pack assets for zombie, city tileset in, hack together shitty level
+
+☑ Deprecate attack token and enemy manager component
+
+☒ Test
